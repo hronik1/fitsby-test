@@ -81,7 +81,8 @@ CREATE TABLE messagethread
 (
 	thread_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	message_id INTEGER NOT NULL,
-	status INTEGER NOT NULL,
+	sender_status INTEGER NOT NULL,
+	read_status INTEGER NOT NULL,
 	content TEXT NOT NULL,
 	create_time INTEGER NOT NULL,
 	INDEX message_index (message_id),

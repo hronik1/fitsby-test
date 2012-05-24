@@ -6,7 +6,8 @@
  * The followings are the available columns in table 'messagethread':
  * @property integer $thread_id
  * @property integer $message_id
- * @property integer $status
+ * @property integer $sender_status
+ * @property integer $read_status
  * @property string $content
  * @property integer $create_time
  *
@@ -17,6 +18,8 @@ class Messagethread extends CActiveRecord
 {
 	const STATUS_INCOMING=1;
 	const STATUS_OUTGOING=2;
+	const STATUS_READ=1;
+	const STATUS_UNREAD=2;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -43,12 +46,13 @@ class Messagethread extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('message_id, status, content, create_time', 'required'),
-			array('message_id, status, create_time', 'numerical', 'integerOnly'=>true),
-			array('status', 'in', 'range'=>array(STATUS_INCOMING,STATUS_OUTGOING)),
+			array('message_id, sender_status, read_status, content, create_time', 'required'),
+			array('message_id, sender_status, read_status, create_time', 'numerical', 'integerOnly'=>true),
+			array('sender_status', 'in', 'range'=>array(STATUS_INCOMING,STATUS_OUTGOING)),
+			array('read_status', 'in', 'range'=>array(STATUS_READ, STATUS_UNREAD)),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('thread_id, message_id, status, content, create_time', 'safe', 'on'=>'search'),
+			array('thread_id, message_id, sender_status, read_status, content, create_time', 'safe', 'on'=>'search'),
 		);
 	}
 
