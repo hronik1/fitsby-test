@@ -63,3 +63,13 @@ CREATE TABLE message
 	FOREIGN KEY (from_user) REFERENCES user(username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 	
+CREATE TABLE messagethread
+(
+	thread_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	message_id INTEGER NOT NULL,
+	status INTEGER NOT NULL,
+	content TEXT NOT NULL,
+	create_time INTEGER NOT NULL,
+	INDEX message_index (message_id),
+	FOREIGN KEY (message_id) REFERENCES message(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
