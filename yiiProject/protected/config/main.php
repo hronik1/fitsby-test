@@ -29,6 +29,7 @@ return array(
 		),
 		'settings',
 		'profile',
+		'landing',
 		
 	),
 
@@ -76,8 +77,11 @@ return array(
 				
 			),
 		),
+
 	),
 
+	'defaultController' => 'landing/default',
+		
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
