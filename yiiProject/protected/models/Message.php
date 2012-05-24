@@ -1,27 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "follower".
+ * This is the model class for table "message".
  *
- * The followings are the available columns in table 'follower':
- * @property string $followed_username
- * @property string $follower_username
- * @property integer $status
+ * The followings are the available columns in table 'message':
+ * @property integer $id
+ * @property string $to_user
+ * @property string $from_user
  * @property integer $create_time
+ * @property integer $update_time
  *
  * The followings are the available model relations:
- * @property User $followedUsername
- * @property User $followerUsername
+ * @property User $toUser
+ * @property User $fromUser
  */
-class Follower extends CActiveRecord
+class Message extends CActiveRecord
 {
-	const STATUS_PENDING=1;
-	const STATUS_CONFIRMED=2;
-	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Follower the static model class
+	 * @return Message the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -33,7 +31,7 @@ class Follower extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'follower';
+		return 'message';
 	}
 
 	/**
@@ -44,13 +42,12 @@ class Follower extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('followed_username, follower_username, status, create_time', 'required'),
-			array('status', 'in', 'range'=>array(STATUS_PENDING,STATUS_CONFIRMED)),
-			array('status, create_time', 'numerical', 'integerOnly'=>true),
-			array('followed_username, follower_username', 'length', 'max'=>64),
+			array('to_user, from_user, create_time, update_time', 'required'),
+			array('create_time, update_time', 'numerical', 'integerOnly'=>true),
+			array('to_user, from_user', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('followed_username, follower_username, status, create_time', 'safe', 'on'=>'search'),
+			array('id, to_user, from_user, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,8 +59,8 @@ class Follower extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'followedUsername' => array(self::BELONGS_TO, 'User', 'followed_username'),
-			'followerUsername' => array(self::BELONGS_TO, 'User', 'follower_username'),
+			'toUser' => array(self::BELONGS_TO, 'User', 'to_user'),
+			'fromUser' => array(self::BELONGS_TO, 'User', 'from_user'),
 		);
 	}
 
@@ -73,10 +70,11 @@ class Follower extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'followed_username' => 'Followed Username',
-			'follower_username' => 'Follower Username',
-			'status' => 'Status',
+			'id' => 'ID',
+			'to_user' => 'To User',
+			'from_user' => 'From User',
 			'create_time' => 'Create Time',
+			'update_time' => 'Update Time',
 		);
 	}
 
@@ -91,10 +89,11 @@ class Follower extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('followed_username',$this->followed_username,true);
-		$criteria->compare('follower_username',$this->follower_username,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('to_user',$this->to_user,true);
+		$criteria->compare('from_user',$this->from_user,true);
 		$criteria->compare('create_time',$this->create_time);
+		$criteria->compare('update_time',$this->update_time);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -102,10 +101,10 @@ class Follower extends CActiveRecord
 	}
 	
 	/**
-	 * return composite primary key for follower table
+	 * return primaryKey for the model
 	 */
 	public function primaryKey()
 	{
-		return array('followed_username', 'follower_username');
+		return 'id';
 	}
 }

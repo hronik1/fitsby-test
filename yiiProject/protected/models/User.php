@@ -59,6 +59,10 @@ class User extends CActiveRecord
 				'following'=>array(self::HAS_MANY, 'Follower', 'follower_username'),
 				//this is the following_username, therefore this is the username being followed
 				'followers'=>array(self::HAS_MANY, 'Follower', 'following_username'),
+				'postsOutgoing'=>array(self::HAS_MANY, 'Post', 'from_user'),
+				'postsIncoming'=>array(self::HAS_MANY, 'Post', 'to_user'),
+				'messages'=>array(self::HAS_MANY, 'Message', 'to_user',
+						'order'=>'messages.update_time DESC'),
 		);
 	}
 

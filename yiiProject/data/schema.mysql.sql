@@ -36,3 +36,30 @@ CREATE TABLE follower
 	PRIMARY KEY (followed_username, follower_username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 	
+CREATE TABLE post
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	to_user VARCHAR(64) NOT NULL,
+	from_user VARCHAR(64) NOT NULL,
+	content TEXT NOT NULL,
+	status INT NOT NULL,
+	create_time INTEGER NOT NULL,
+	INDEX to_index (to_user),
+	INDEX from_index (from_user),
+	FOREIGN KEY (to_user) REFERENCES user(username),
+	FOREIGN KEY (from_user) REFERENCES user(username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE message
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	to_user VARCHAR(64) NOT NULL,
+	from_user VARCHAR(64) NOT NULL,
+	create_time INTEGER NOT NULL,
+	update_time INTEGER NOT NULL,
+	INDEX to_index (to_user),
+	INDEX from_index (from_user),
+	FOREIGN KEY (to_user) REFERENCES user(username),
+	FOREIGN KEY (from_user) REFERENCES user(username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+	
