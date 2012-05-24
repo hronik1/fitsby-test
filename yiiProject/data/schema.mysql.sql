@@ -22,3 +22,17 @@ CREATE TABLE profile
 	INDEX profile_index (profile_username),
 	FOREIGN KEY (profile_username) REFERENCES user(username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE follower
+(
+	followed_username VARCHAR(64) NOT NULL,
+	follower_username VARCHAR(64) NOT NULL,
+	status INT NOT NULL,
+	create_time INTEGER NOT NULL,
+	INDEX followed_index (followed_username),
+	INDEX follower_index (follower_username),
+	FOREIGN KEY (followed_username) REFERENCES user(username),
+	FOREIGN KEY (follower_username) REFERENCES user(username),
+	PRIMARY KEY (followed_username, follower_username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+	

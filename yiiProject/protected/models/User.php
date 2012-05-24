@@ -55,6 +55,10 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 				'profile'=>array(self::HAS_ONE, 'Profile', 'profile_username'),
+				// this is the follower_username, therefore this user is the one doing the following
+				'following'=>array(self::HAS_MANY, 'Follower', 'follower_username'),
+				//this is the following_username, therefore this is the username being followed
+				'followers'=>array(self::HAS_MANY, 'Follower', 'following_username'),
 		);
 	}
 

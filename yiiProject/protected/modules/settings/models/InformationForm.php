@@ -60,7 +60,9 @@ class InformationForm extends CFormModel
 	public function update()
 	{
 		$this->_username = Yii::app()->user->getName();
-		$this->_profile = Profile::model()->findByAttributes(array('profile_username'=>$this->_username));
+		$user = User::model()->findByPk($this->_username);
+		$this->_profile = $user->profile;
+		//$this->_profile = Profile::model()->findByAttributes(array('profile_username'=>$this->_username));
 		$this->_profile->goal = $this->goal;
 		if($this->goal !== ""){
 			$this->_profile->goal = $this->goal;
