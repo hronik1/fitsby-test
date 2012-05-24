@@ -64,6 +64,7 @@ class Post extends CActiveRecord
 			'fromUser' => array(self::BELONGS_TO, 'User', 'from_user'),
 			'postComments' => array(self::HAS_MANY, 'Postcomment', 'post_id',
 					'order' => 'postComments.create_time ASC'),
+			'postCommentsNumber' => array(self::STAT, 'Postcomment', 'post_id'),
 		);
 	}
 

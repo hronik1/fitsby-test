@@ -62,6 +62,7 @@ class Message extends CActiveRecord
 			'toUser' => array(self::BELONGS_TO, 'User', 'to_user'),
 			'fromUser' => array(self::BELONGS_TO, 'User', 'from_user'),
 			'threads' => array(self::HAS_MANY, 'Messagethread', 'message_id'),
+			'threadCount' => array(self::STAT, 'Messagethread', 'message_id'),
 		);
 	}
 
