@@ -63,6 +63,8 @@ class User extends CActiveRecord
 				'postsIncoming'=>array(self::HAS_MANY, 'Post', 'to_user'),
 				'messages'=>array(self::HAS_MANY, 'Message', 'to_user',
 						'order'=>'messages.update_time DESC'),
+				'postComments' => array(self::HAS_MANY, 'Postcomment', 'commenter_username',
+						'order'=>'postComments.create_time DESC',)
 		);
 	}
 

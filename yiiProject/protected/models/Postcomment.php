@@ -1,26 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "post".
+ * This is the model class for table "postcomment".
  *
- * The followings are the available columns in table 'post':
- * @property integer $id
- * @property string $to_user
- * @property string $from_user
+ * The followings are the available columns in table 'postcomment':
+ * @property integer $comment_id
+ * @property integer $post_id
+ * @property string $commenter_username
  * @property string $content
- * @property integer $status
  * @property integer $create_time
  *
  * The followings are the available model relations:
- * @property User $toUser
- * @property User $fromUser
+ * @property Post $post
+ * @property User $commenterUsername
  */
-class Post extends CActiveRecord
+class Postcomment extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Post the static model class
+	 * @return Postcomment the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -32,7 +31,7 @@ class Post extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'post';
+		return 'postcomment';
 	}
 
 	/**
@@ -43,12 +42,12 @@ class Post extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('to_user, from_user, content, status, create_time', 'required'),
-			array('status, create_time', 'numerical', 'integerOnly'=>true),
-			array('to_user, from_user', 'length', 'max'=>64),
+			array('post_id, commenter_username, content, create_time', 'required'),
+			array('post_id, create_time', 'numerical', 'integerOnly'=>true),
+			array('commenter_username', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, to_user, from_user, content, status, create_time', 'safe', 'on'=>'search'),
+			array('comment_id, post_id, commenter_username, content, create_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,10 +59,8 @@ class Post extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'toUser' => array(self::BELONGS_TO, 'User', 'to_user'),
-			'fromUser' => array(self::BELONGS_TO, 'User', 'from_user'),
-			'postComments' => array(self::HAS_MANY, 'Postcomment', 'post_id',
-					'order' => 'postComments.create_time ASC'),
+			'post' => array(self::BELONGS_TO, 'Post', 'post_id'),
+			'commenterUsername' => array(self::BELONGS_TO, 'User', 'commenter_username'),
 		);
 	}
 
@@ -73,11 +70,10 @@ class Post extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'to_user' => 'To User',
-			'from_user' => 'From User',
+			'comment_id' => 'Comment',
+			'post_id' => 'Post',
+			'commenter_username' => 'Commenter Username',
 			'content' => 'Content',
-			'status' => 'Status',
 			'create_time' => 'Create Time',
 		);
 	}
@@ -93,20 +89,14 @@ class Post extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('to_user',$this->to_user,true);
-		$criteria->compare('from_user',$this->from_user,true);
+		$criteria->compare('comment_id',$this->comment_id);
+		$criteria->compare('post_id',$this->post_id);
+		$criteria->compare('commenter_username',$this->commenter_username,true);
 		$criteria->compare('content',$this->content,true);
-		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public function primaryKey()
-	{
-		return 'id';
 	}
 }

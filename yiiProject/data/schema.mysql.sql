@@ -50,6 +50,20 @@ CREATE TABLE post
 	FOREIGN KEY (from_user) REFERENCES user(username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+CREATE TABLE postcomment
+(
+	comment_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	post_id INTEGER NOT NULL,
+	commenter_username VARCHAR(64) NOT NULL,
+	content TEXT NOT NULL,
+	create_time INTEGER NOT NULL,
+	INDEX post_index (post_id),
+	INDEX commenter_index (commenter_username),
+	FOREIGN KEY (post_id) REFERENCES post(id),
+	FOREIGN KEY (commenter_username) REFERENCES user(username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE message
 (
 	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -73,3 +87,4 @@ CREATE TABLE messagethread
 	INDEX message_index (message_id),
 	FOREIGN KEY (message_id) REFERENCES message(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
