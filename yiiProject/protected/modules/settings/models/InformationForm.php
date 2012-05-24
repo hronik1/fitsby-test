@@ -54,10 +54,36 @@ class InformationForm extends CFormModel
 		);
 	}
 	
+	/**
+	 * updates the profile for this user
+	 */
 	public function update()
 	{
 		$this->_username = Yii::app()->user->getName();
 		$this->_profile = Profile::model()->findByAttributes(array('profile_username'=>$this->_username));
+		$this->_profile->goal = $this->goal;
+		if($this->goal !== ""){
+			$this->_profile->goal = $this->goal;
+		}
+		if($this->firstname !== ""){
+			$this->_profile->firstname = $this->firstname;
+		}
+		if($this->lastname !== ""){
+			$this->_profile->lastname = $this->lastname;
+		}
+		if($this->title !== ""){
+			$this->_profile->title = $this->title;
+		}
+		if($this->height !== ""){
+			$this->_profile->height = $this->height;
+		}
+		if($this->weight !== ""){
+			$this->_profile->weight = $this->weight;
+		}
+		if($this->location !== ""){
+			$this->_profile->location = $this->location;
+		}
+		$this->_profile->save();
 	}
 	
 }

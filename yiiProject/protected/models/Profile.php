@@ -15,6 +15,7 @@
  * @property string $gender
  * @property integer $weight
  * @property integer $height
+ * @property string $location
  *
  * The followings are the available model relations:
  * @property User $profileUsername
@@ -50,7 +51,7 @@ class Profile extends CActiveRecord
 			array('profile_username, firstname, lastname, birthmonth, birthday, birthyear, goal, gender', 'required'),
 			array('birthmonth, birthday, birthyear, weight, height', 'numerical', 'integerOnly'=>true),
 			array('profile_username', 'length', 'max'=>64),
-			array('firstname, lastname, title, goal, gender', 'length', 'max'=>128),
+			array('firstname, lastname, title, goal, gender, location', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('profile_username, firstname, lastname, birthmonth, birthday, birthyear, title, goal, gender, weight, height', 'safe', 'on'=>'search'),
@@ -174,5 +175,10 @@ class Profile extends CActiveRecord
 				2 => 'Gain Weight',
 				3 => 'Increase Performance',
 		);
+	}
+	
+	public function primaryKey()
+	{
+		return 'profile_username';
 	}
 }

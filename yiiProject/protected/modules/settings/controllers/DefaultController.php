@@ -69,5 +69,6 @@ class DefaultController extends CController
 		}
 		$this->render('information',array('model'=>$model));
 	}
+	
 
 }

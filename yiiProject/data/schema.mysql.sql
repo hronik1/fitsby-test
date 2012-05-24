@@ -18,6 +18,7 @@ CREATE TABLE profile
 	gender VARCHAR(128) NOT NULL,
 	weight INT,
 	height INT,
+	location VARCHAR(128),
 	INDEX profile_index (profile_username),
 	FOREIGN KEY (profile_username) REFERENCES user(username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
