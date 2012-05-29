@@ -30,6 +30,7 @@ return array(
 		'settings',
 		'profile',
 		'landing',
+		'newsfeed',
 		
 	),
 
