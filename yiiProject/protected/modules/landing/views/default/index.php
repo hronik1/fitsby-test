@@ -1,11 +1,10 @@
-
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
-
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<?php
+$this->widget('zii.widgets.CMenu',array(
+   'items'=>array(
+      array('label'=>'User Login', 'url'=>'#','linkOptions'=>array( 'onclick'=>'$("#userloginwidget").dialog("open"); return false;'), 'visible'=>Yii::app()->user->isGuest),  
+   ),
+)); 
+ 
+$this->widget('UserLoginWidget',array('visible'=>Yii::app()->user->isGuest)); 
+ 
+?>
